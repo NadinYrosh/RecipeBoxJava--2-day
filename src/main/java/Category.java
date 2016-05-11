@@ -57,7 +57,6 @@ public class Category {
     }
   }
 
-//////////
   public void addRecipe(Recipe newRecipe) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO categories_recipes (recipe_id, category_id) VALUES (:recipe, :category)";
@@ -88,5 +87,4 @@ public class Category {
       return recipes;
     }
   }
-  ///////////
 }
