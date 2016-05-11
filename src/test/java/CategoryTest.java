@@ -58,6 +58,24 @@ public class CategoryTest {
     assertTrue(myCategory.equals(savedCategory));
   }
 
+  @Test
+  public void update_updatesRecipes_true() {
+    Category myCategory = new Category("Dinner");
+    myCategory.save();
+    myCategory.update("Brunch");
+    assertEquals("Brunch", Category.find(myCategory.getId()).getName());
+  }
+
+  @Test
+  public void delete_deletesRecipe_true() {
+    Category myCategory = new Category("Dinner");
+    myCategory.save();
+    int myCategoryId = myCategory.getId();
+    myCategory.delete();
+    assertEquals(null, Category.find(myCategoryId));
+  }
+
+
   // @Test
   // public void addBook_addsBookToAuthor() {
   //   Book myBook = new Book("Tom Sawyer");

@@ -41,17 +41,6 @@ public class Recipe {
         .getKey();
     }
   }
-  public void update(String newTitle, String newInstructions, Integer newRating) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE recipes SET title = :title, instructions = :instructions, rating =:rating WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("id", this.id)
-        .addParameter("title", newTitle)
-        .addParameter("instructions", newInstructions)
-        .addParameter("rating", newRating)
-        .executeUpdate();
-    }
-  }
 
   public void addCategory(Category newCategory) {
     try(Connection con = DB.sql2o.open()) {
@@ -81,6 +70,18 @@ public class Recipe {
         categories.add(tempCategory);
       }
       return categories;
+    }
+  }
+
+  public void update(String newTitle, String newInstructions, Integer newRating) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE recipes SET title = :title, instructions = :instructions, rating =:rating WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .addParameter("title", newTitle)
+        .addParameter("instructions", newInstructions)
+        .addParameter("rating", newRating)
+        .executeUpdate();
     }
   }
 
@@ -132,4 +133,36 @@ public class Recipe {
              this.getId() == newRecipe.getId();
     }
   }
+
+  public void addIngredient(Ingredient newIngredient) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO recipes_ingredients (recipe_id, ingredient_id) VALUES (:recipe, :ingredient)";
+      con.createQuery(sql)
+        .addParameter("ingredient", newIngredient.getId())
+        .addParameter("recipe", this.id)
+        .executeUpdate();
+    }
+  }
+
+  public List<Ingredient> getIngredients() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT ingredient_id FROM recipes_ingredients WHERE recipe_id = :recipe_id";
+
+      List<Integer> ingredientIds =  con.createQuery(sql)
+        .addParameter("recipe_id", this.id)
+        .executeAndFetch(Integer.class);
+
+      List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+      for (Integer ingredient_id : ingredientIds) {
+        String categoryQuery = "Select * FROM ingredients WHERE id = :ingredient_id";
+        Ingredient tempIngredient = con.createQuery(categoryQuery)
+          .addParameter("ingredient_id", ingredient_id)
+          .executeAndFetchFirst(Ingredient.class);
+        ingredients.add(tempIngredient);
+      }
+      return ingredients;
+    }
+  }
+
 }

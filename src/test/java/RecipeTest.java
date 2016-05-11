@@ -119,5 +119,15 @@ public class RecipeTest {
     myRecipe.delete();
     assertEquals(0, myRecipe.getCategories().size());
   }
-
+//----------------------------------------//
+  @Test
+  public void addIngridient_addsIngredientToARecipe() {
+    Ingredient myIngredient = new Ingredient("Peach");
+    myIngredient.save();
+    Recipe myRecipe = new Recipe("Pie", "Bake a pie", 5);
+    myRecipe.save();
+    myRecipe.addIngredient(myIngredient);
+    Ingredient savedIngredient = myRecipe.getIngredients().get(0);
+    assertTrue(myIngredient.equals(savedIngredient));
+  }
 }

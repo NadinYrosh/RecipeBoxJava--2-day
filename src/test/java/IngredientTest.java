@@ -55,16 +55,4 @@ public class IngredientTest {
     Ingredient savedIngredient = Ingredient.find(myIngredient.getId());
     assertTrue(myIngredient.equals(savedIngredient));
   }
-
-  // @Test
-  // public void addRecipe_addsRecipeToIngredient() {
-  //   Recipe myRecipe = new Recipe("Pie", "Back a pie", 5);
-  //   myRecipe.save();
-  //   Ingredient myIngredient = new Ingredient("Peach");
-  //   myIngredient.save();
-  //   myIngredient.addRecipe(myRecipe);
-  //   Recipe savedRecipe = myIngredient.getRecipes().get(0);
-  //   assertTrue(myRecipe.equals(savedRecipe));
-  // }
-
 }

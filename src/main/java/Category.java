@@ -87,4 +87,28 @@ public class Category {
       return recipes;
     }
   }
+
+  public void update(String newName) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE categories SET name = :name WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .addParameter("name", newName)
+        .executeUpdate();
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM categories WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
+
+      String joinTableDelete = "DELETE FROM categories_recipes WHERE category_id = :category_id";
+      con.createQuery(joinTableDelete)
+        .addParameter("category_id", this.id)
+        .executeUpdate();
+    }
+  }
 }
