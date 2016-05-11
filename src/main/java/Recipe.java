@@ -6,9 +6,9 @@ public class Recipe {
   private int id;
   private String title;
   private String instructions;
-  private int rating;
+  private Integer rating;
 
-  public Recipe (String title, String instructions, int rating) {
+  public Recipe (String title, String instructions, Integer rating) {
     this.title = title;
     this.instructions = instructions;
     this.rating = rating;
@@ -21,7 +21,7 @@ public class Recipe {
   public String getInstructions() {
     return this.instructions;
   }
-  public int getRating() {
+  public Integer getRating() {
     return this.rating;
   }
 
@@ -41,7 +41,7 @@ public class Recipe {
         .getKey();
     }
   }
-  public void update(String newTitle, String newInstructions, int newRating) {
+  public void update(String newTitle, String newInstructions, Integer newRating) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE recipes SET title = :title, instructions = :instructions, rating =:rating WHERE id = :id";
       con.createQuery(sql)

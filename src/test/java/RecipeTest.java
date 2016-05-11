@@ -30,7 +30,7 @@ public class RecipeTest {
   @Test
   public void getRating_instantiatesWithRating_int() {
     Recipe myRecipe = new Recipe("Pie", "Bake a pie", 5);
-    assertEquals(5, myRecipe.getRating());
+    assertTrue(5 == myRecipe.getRating());
   }
 
   @Test
@@ -75,7 +75,7 @@ public class RecipeTest {
     myRecipe.update("Scone", "Bake a scone", 10);
     assertEquals("Scone", Recipe.find(myRecipe.getId()).getTitle());
     assertEquals("Bake a scone", Recipe.find(myRecipe.getId()).getInstructions());
-    assertEquals(10, Recipe.find(myRecipe.getId()).getRating());
+    assertTrue(10 == Recipe.find(myRecipe.getId()).getRating());
   }
 
   @Test
