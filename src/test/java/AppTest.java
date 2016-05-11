@@ -21,26 +21,8 @@ public class AppTest extends FluentTest {
   @ClassRule
   public static ServerRule server = new ServerRule();
 
-  @Before
-    public void setUp() {
-    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/recipe_box_test", null, null);
-  }
-
-  @After
-  public void tearDown() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteRecipesQuery = "DELETE FROM recipes *;";
-      String deleteCategoriesQuery = "DELETE FROM categories *;";
-      String deleteIngredientsQuery = "DELETE FROM ingredients *;";
-      String deleteRecipeIngredientQuery = "DELETE FROM recipe_ingredient *;";
-      String deleteCategoryRecipeQuery = "DELETE FROM category_recipe *;";
-      con.createQuery(deleteRecipesQuery).executeUpdate();
-      con.createQuery(deleteCategoriesQuery).executeUpdate();
-      con.createQuery(deleteIngredientsQuery).executeUpdate();
-      con.createQuery(deleteRecipeIngredientQuery).executeUpdate();
-      con.createQuery(deleteCategoryRecipeQuery).executeUpdate();
-    }
-  }
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
   // @Test
   // public void rootTest() {
