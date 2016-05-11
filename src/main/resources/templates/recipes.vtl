@@ -1,0 +1,9 @@
+recipes.vtl
+
+<h1>Recipes:</h1>
+
+<ul>
+  #foreach ($recipe in $recipes)
+    <li>$recipe.getTitle()</li>
+  #end
+</ul>

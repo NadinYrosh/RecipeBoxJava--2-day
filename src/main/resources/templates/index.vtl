@@ -1,1 +1,23 @@
-home.vtl
+index.vtl
+
+<h1>Welcome to Recipe Box!</h1>
+
+<form action="/recipes" method="post">
+
+  <h3><label for="recipe">Enter your recipe:</label></h3>
+  <textarea id="recipe" name="recipe" type="text"></textarea>
+
+  <h3><label for="category">Enter category:</label></h3>
+  <input id="name" name="name" type="text">
+
+  <h3><label for="rate">Rate your recipe:</label></h3>
+  <input id="rating" name="rating" type="number">
+
+  <button type="submit" class="btn btn-info">Save Recipe</button>
+
+
+</form>
+<hr>
+
+
+<a href="/recipes">All Recipes</a>
