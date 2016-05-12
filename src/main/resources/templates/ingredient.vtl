@@ -1,0 +1,9 @@
+<h1>Here are af the recipes for $ingredient.getName()</h1>
+
+<h3>
+  <ul>
+    #foreach ($recipe in $ingredient.getRecipes())
+      <h2><li>$recipe.getName()</li></h2>
+    #end
+  </ul>
+</h3>

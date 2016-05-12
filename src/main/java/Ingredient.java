@@ -54,4 +54,23 @@ public class Ingredient {
       return ingredient;
     }
   }
+
+  // public List<Recipe> getRecipes(){
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT * FROM recipes_ingredients WHERE ingredient_id = :id";
+  //     List<Integer> ids = con.createQuery(sql)
+  //                         .addParameter("id", this.getId())
+  //                         .executeAndFetch(Integer.class);
+  //     List<Recipe> recipes = new ArrayList<Recipe>();
+  //
+  //     for(Integer recipe_id : ids) {
+  //       String joinQuery = "SELECT * FROM recipes WHERE ID = :recipe_id";
+  //       Recipe recipe = con.createQuery(joinQuery)
+  //                       .addParameter("recipe_id", recipe_id)
+  //                       .executeAndFetchFirst(Recipe.class);
+  //       recipes.add(recipe);
+  //     }
+  //     return recipes;
+  //   }
+  // }
 }
