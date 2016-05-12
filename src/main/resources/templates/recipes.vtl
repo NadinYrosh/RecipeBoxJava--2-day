@@ -4,6 +4,9 @@ recipes.vtl
 
 <ul>
   #foreach ($recipe in $recipes)
-    <li>$recipe.getTitle()</li>
+    <li><a href="/recipes/$recipe.getId()">$recipe.getTitle()</a></li>
   #end
 </ul>
+
+<a href="/">Create new recipe</a>
+<a href="/">Create category</a>

@@ -36,7 +36,46 @@ public class AppTest extends FluentTest {
     fill("#recipe").with("this is the best recipe");
     fill("#name").with("Big Burger");
     fill("#rating").with("5");
-    submit(".btn");
+    submit("#save-recipe");
     assertThat(pageSource()).contains("Big Burger");
   }
+
+  @Test
+  public void recipeIsDisplayedTest() {
+    Recipe newRecipe = new Recipe("Pie", "Bake a pie", 5);
+    newRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", newRecipe.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Bake a pie");
+  }
+
+  @Test
+  public void ingredientAddedToRecipePage() {
+    Recipe newRecipe = new Recipe("Pie", "Bake a pie", 5);
+    newRecipe.save();
+    Ingredient newIngredient = new Ingredient("Flour");
+    newIngredient.save();
+    String url = String.format("http://localhost:4567/recipes/%d", newRecipe.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Flour");
+  }
+
+  @Test
+  public void createCategory() {
+    goTo("http://localhost:4567/");
+    fill("#category").with("Dinner");
+    submit("#save-category");
+    assertThat(pageSource()).contains("Dinner");
+  }
+
+  @Test
+  public void displayCategoryPage() {
+    Category newCategory = new Category ("Dinner");
+    newCategory.save();
+    String url = String.format("http://localhost:4567/categories/%d", newCategory.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Dinner");
+  }
+
+  //@Test
 }

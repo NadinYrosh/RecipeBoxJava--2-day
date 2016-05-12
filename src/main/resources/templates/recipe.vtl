@@ -1,0 +1,30 @@
+recipe.vtl
+
+<h1>$recipe.getTitle()</h1>
+
+<h2>$recipe.getInstructions()</h2>
+
+<ul>
+  #foreach ($ingredient in $recipe.getIngredients())
+    <h2><li>$ingredient.getName()</li></h2>
+  #end
+</ul>
+
+<form action="/recipes/$recipe.getId()/ingredient" method="post">
+  <input type=text list="ingredient" name="ingredient">
+    <datalist id="ingredient" >
+      <option> Eggs
+      <option> Flour
+      <option> Baking Soda
+      <option> Baking Powder
+      <option> Sugar
+      <option> Peach
+      <option> Vanilla Extract
+    </datalist>
+
+  <button type="submit" class="btn btn-info" id = "add-ingredient" >Add ingredient</button>
+</form>
+<hr>
+
+<a class="btn btn-info" href="/">Create new recipe</a>
+<a class="btn btn-info" href="/">Create category</a>

@@ -1,0 +1,24 @@
+category.vtl
+
+<h1>$category.getName()</h1>
+
+<ul>
+  #foreach ($recipe in $category.getRecipes())
+    <h2><li>$recipe.getTitle()</li></h2>
+  #end
+</ul>
+
+<form action='/add_recipes' method='post'>
+  <input id="category_id" name="category_id" type="hidden" value="$category.getId()">
+  <label for="recipe_id">Select a recipe</label>
+  <select id='recipe_id' name='recipe_id' type='text'>
+    #foreach($recipe in $allRecipes)
+      <option value="$recipe.getId()"> $recipe.getTitle() </option>
+    #end
+  </select>
+  <button type="submit" class="btn btn-info">Add recipe to this category</button>
+</form>
+
+<hr>
+
+<a class="btn btn-info" href="/">Create new recipe</a>
