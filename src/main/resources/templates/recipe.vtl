@@ -26,5 +26,24 @@ recipe.vtl
 </form>
 <hr>
 
-<a class="btn btn-info" href="/">Create new recipe</a>
-<a class="btn btn-info" href="/">Create category</a>
+<form action="/recipes/$recipe.getId()/edit" method="post">
+  <label for="name">Enter new title:</label>
+  <input id="name" name="name" type="text">
+  <br>
+  <label for="recipe">Enter new recipe:</label>
+  <textarea id="recipe" name="recipe" type="text"></textarea>
+  <br>
+  <label for="rating">Rate your recipe:</label>
+  <input id="rating" name="rating" type="number">
+  <br>
+  <button type="submit" class="btn btn-success" id="update">Edit Category</button>
+</form>
+<br>
+<form action="/recipes/$recipe.getId()/delete" method="post">
+  <button  type="submit" class="btn btn-danger" id="delete">Delete this recipe</button>
+</form>
+
+<hr>
+
+<a class="btn btn-info" href="/">Create New Recipe</a>
+<a class="btn btn-info" href="/categories">Add Recipe To Category</a>

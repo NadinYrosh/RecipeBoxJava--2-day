@@ -119,7 +119,7 @@ public class RecipeTest {
     myRecipe.delete();
     assertEquals(0, myRecipe.getCategories().size());
   }
-//----------------------------------------//
+
   @Test
   public void addIngridient_addsIngredientToARecipe() {
     Ingredient myIngredient = new Ingredient("Peach");

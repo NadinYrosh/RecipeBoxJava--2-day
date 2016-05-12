@@ -45,7 +45,6 @@ public class App {
     }, new VelocityTemplateEngine());
 
     post("/recipes/:id/ingredient", (request, response)-> {
-      Map<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("ingredient");
       Ingredient ingredient = new Ingredient(name);
       ingredient.save();
@@ -58,7 +57,6 @@ public class App {
 
     get("/categories", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
       model.put("categories", Category.all());
       model.put("template", "templates/categories.vtl");
       return new ModelAndView(model, layout);
@@ -75,11 +73,51 @@ public class App {
     get("/categories/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Category category = Category.find(Integer.parseInt(request.params("id")));
-
+      model.put("allRecipes", Recipe.all());
       model.put("category", category);
       model.put("template", "templates/category.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    post("/add_recipes", (request, response)-> {
+      int recipeId = Integer.parseInt(request.queryParams("recipe_id"));
+      int categoryId = Integer.parseInt(request.queryParams("category_id"));
+      Recipe savedRecipe = Recipe.find(recipeId);
+      Category savedCategory = Category.find(categoryId);
+      savedCategory.addRecipe(savedRecipe);
+
+      String url = String.format("http://localhost:4567/categories/%d", categoryId);
+      response.redirect(url);
+      return null;
+    });
+
+    post("/categories/:id/delete", (request, response)-> {
+      int categoryId = Integer.parseInt(request.params("id"));
+      Category savedCategory = Category.find(categoryId);
+      savedCategory.delete();
+      response.redirect("/categories");
+      return null;
+    });
+
+    post("/recipes/:id/delete", (request, response)-> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      Recipe savedRecipe = Recipe.find(recipeId);
+      savedRecipe.delete();
+      response.redirect("/recipes");
+      return null;
+    });
+
+    post("/recipes/:id/edit", (request, response)-> {
+      int recipeId = Integer.parseInt(request.params("id"));
+      Recipe savedRecipe = Recipe.find(recipeId);
+
+      String name = request.queryParams("name");
+      String recipe = request.queryParams("recipe");
+      Integer rating = Integer.parseInt(request.queryParams("rating"));
+      savedRecipe.update(name, recipe, rating);
+      response.redirect("/recipes");
+      return null;
+    });
 
   }
 }

@@ -77,5 +77,39 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Dinner");
   }
 
-  //@Test
+  @Test
+  public void deleteCategory(){
+    Category newCategory = new Category ("Dinner");
+    newCategory.save();
+    String url = String.format("http://localhost:4567/categories/%d", newCategory.getId());
+    goTo(url);
+    submit("#delete");
+    goTo(url);
+    assertThat(pageSource()).contains("$category.getName()");
+  }
+
+  @Test
+  public void deleteRecipe(){
+    Recipe newRecipe = new Recipe("Pirojki", "Bake a pirojki", 5);
+    newRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", newRecipe.getId());
+    goTo(url);
+    submit("#delete");
+    goTo(url);
+    assertThat(pageSource()).contains("$recipe.getTitle()");
+  }
+
+  @Test
+  public void updateRecipe () {
+    Recipe newRecipe = new Recipe("Pirojki", "Bake a pirojki", 5);
+    newRecipe.save();
+    String url = String.format("http://localhost:4567/recipes/%d", newRecipe.getId());
+    goTo(url);
+    fill("#name").with("Potato");
+    fill("#recipe").with("Buy one");
+    fill("#rating").with("10");
+    submit("#update");
+    goTo(url);
+    assertThat(pageSource()).contains("Potato");
+  }
 }

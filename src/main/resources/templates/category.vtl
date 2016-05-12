@@ -21,4 +21,16 @@ category.vtl
 
 <hr>
 
+<form action="/categories/$category.getId()/update" method="post">
+  <label for="name">Edit Category name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-success">Edit Category</button>
+</form>
+
+<form action="/categories/$category.getId()/delete" method="post">
+  <button  type="submit" class="btn btn-danger" id="delete">Delete this Category</button>
+</form>
+
+<hr>
+
 <a class="btn btn-info" href="/">Create new recipe</a>
